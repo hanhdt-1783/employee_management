@@ -1,8 +1,16 @@
 package com.hanhdoan.employee_management.employee;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class EmployeeDTO {
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is required")
     private String email;
+    
     private String departmentName;
 
     public String getName() { return name; }
