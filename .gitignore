@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore all logs inside logs/ folder
+logs/*
+# But keep the .gitkeep file
+!logs/.gitkeep
+
+# Ignore any other .log files outside
+*.log

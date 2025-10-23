@@ -1,9 +1,12 @@
 package com.hanhdoan.employee_management.util;
 
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class UtilityService {
+    private static final ObjectMapper mapper = new ObjectMapper();
+
     public String formatName(String rawName) {
         if (rawName == null || rawName.isBlank()) return "";
         rawName = rawName.trim().toLowerCase();
@@ -19,5 +22,14 @@ public class UtilityService {
 
     public String generateEmployeeCode(int counter) {
         return String.format("EMP%06d", counter);
+    }
+
+    public String toJson(Object obj) {
+        try {
+            return mapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }
