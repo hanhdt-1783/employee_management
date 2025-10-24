@@ -49,4 +49,9 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/employee-count")
+    public long getEmployeeCount() {
+        return employeeService.getEmployeeCount();
+    }
 }

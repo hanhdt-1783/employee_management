@@ -3,6 +3,7 @@ package com.hanhdoan.employee_management.employee;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.hanhdoan.employee_management.department.Department;
 import com.hanhdoan.employee_management.department.DepartmentRepository;
@@ -92,5 +93,11 @@ public class EmployeeService {
         employeeRepository.delete(employee);
 
         log.info("Employee with ID {} deleted.", id);
+    }
+
+    @Cacheable("employeeCount")
+    public long getEmployeeCount() {
+        log.info("Counting employees in DB...");
+        return employeeRepository.count();
     }
 }
