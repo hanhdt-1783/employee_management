@@ -1,5 +1,6 @@
 package com.hanhdoan.employee_management.employee;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,18 +21,21 @@ public class EmployeeWebController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String getAllEmployees(@RequestParam(required = false) String search, Model model) {
         model.addAttribute("employees", employeeService.getAllEmployees(search));
         return "employees/list";
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showAddForm(Model model) {
         model.addAttribute("employee", new EmployeeDTO());
         return "employees/add";
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addEmployee(@Valid @ModelAttribute("employee") EmployeeDTO employeeDTO, BindingResult result,
             Model model) {
         if (result.hasErrors()) {
