@@ -44,4 +44,11 @@ public class EmployeeWebController {
         employeeService.addEmployee(employeeDTO);
         return "redirect:/employees/list";
     }
+
+    @GetMapping("/statistics")
+    public String showStatisticsPage(Model model) {
+        model.addAttribute("totalEmployees", employeeService.getEmployeeCount());
+        model.addAttribute("byDepartment", employeeService.getEmployeeCountByDepartment());
+        return "employees/statistics";
+    }
 }

@@ -9,7 +9,9 @@ import com.hanhdoan.employee_management.department.Department;
 import com.hanhdoan.employee_management.department.DepartmentRepository;
 import com.hanhdoan.employee_management.exception.ResourceNotFoundException;
 import com.hanhdoan.employee_management.util.UtilityService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeService {
@@ -99,5 +101,15 @@ public class EmployeeService {
     public long getEmployeeCount() {
         log.info("Counting employees in DB...");
         return employeeRepository.count();
+    }
+
+    public Map<String, Long> getEmployeeCountByDepartment() {
+        Map<String, Long> result = new HashMap<>();
+        employeeRepository.countEmployeesByDepartment().forEach(row -> {
+            String dept = (String) row[0];
+            Long count = (Long) row[1];
+            result.put(dept, count);
+        });
+        return result;
     }
 }

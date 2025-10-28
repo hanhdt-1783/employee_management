@@ -9,4 +9,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT COALESCE(MAX(e.id), 0) FROM Employee e")
     Integer findMaxId();
+
+    @Query("SELECT e.department.name, COUNT(e) FROM Employee e GROUP BY e.department.id")
+    List<Object[]> countEmployeesByDepartment();
 }
